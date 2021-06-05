@@ -31,7 +31,7 @@ object Spark03_WordCount {
 //      word => word._1
 //    )  // 根据第一个元素分组 结果为（hello, [(hello, 1), (hello, 1)]）
 
-    // 4、对分组后的数据进行转换
+    // 4、对分组后的数据进行转换s
     // (hello, 2), (world, 1)
 //    val wordToCount = wordGroup.map{
 //      case (word, list) => {

@@ -26,22 +26,27 @@ object Spark03_WordCount {
     )
     // 3、将数据进行分组
     // (hello, hello), (world)
-    val wordGroup: RDD[(String, Iterable[(String, Int)])] = wordToOne.groupBy(
-      word => word._1
-    )  // 根据第一个元素分组 结果为（hello, [(hello, 1), (hello, 1)]）
 
+//    val wordGroup: RDD[(String, Iterable[(String, Int)])] = wordToOne.groupBy(
+//      word => word._1
+//    )  // 根据第一个元素分组 结果为（hello, [(hello, 1), (hello, 1)]）
 
     // 4、对分组后的数据进行转换
     // (hello, 2), (world, 1)
-    val wordToCount = wordGroup.map{
-      case (word, list) => {
-        list.reduce(
-          (t1, t2) => {
-            (t1._1, t1._2+t2._2)
-          }
-        )
-      }
-    }
+//    val wordToCount = wordGroup.map{
+//      case (word, list) => {
+//        list.reduce(
+//          (t1, t2) => {
+//            (t1._1, t1._2+t2._2)
+//          }
+//        )
+//      }
+//    }
+
+    //    wordToOne.reduceByKey( (x, y) => {x+y} )
+    //    wordToOne.reduceByKey( (x, y) => x+y )  // 函数就一行可以把大括号省略
+    val wordToCount = wordToOne.reduceByKey(_ + _)
+
 
     // 5、将转换结果进行打印
     wordToCount.foreach(println)
